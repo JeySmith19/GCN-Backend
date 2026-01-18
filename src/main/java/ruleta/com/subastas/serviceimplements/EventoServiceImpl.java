@@ -33,4 +33,9 @@ public class EventoServiceImpl implements IEventoService {
     public void delete(Long id) {
         eventoRepo.deleteById(id);
     }
+
+    @Override
+    public List<Evento> listByEstado(String estado) {
+        return eventoRepo.findByEstado(estado);
+    }
 }

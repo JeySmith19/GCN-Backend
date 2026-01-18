@@ -2,6 +2,7 @@ package ruleta.com.subastas.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,6 +34,7 @@ public class SubastaController {
 
     // =================== CREAR ===================
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public void crear(@RequestBody SubastaDTO dto) {
         ModelMapper mapper = new ModelMapper();
 
@@ -52,6 +54,7 @@ public class SubastaController {
 
     // =================== LISTAR MIS SUBASTAS ===================
     @GetMapping("/mis-subastas")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public List<SubastaDTO> misSubastas() {
 
         ModelMapper mapper = new ModelMapper();
@@ -87,6 +90,7 @@ public class SubastaController {
 
     // =================== LISTAR POR ID (para editar) ===================
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public SubastaDTO listarId(@PathVariable Long id) {
 
         ModelMapper mapper = new ModelMapper();
@@ -105,6 +109,7 @@ public class SubastaController {
 
     // =================== ACTUALIZAR ===================
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public void actualizar(@PathVariable Long id, @RequestBody SubastaDTO dto) {
         ModelMapper mapper = new ModelMapper();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -126,6 +131,7 @@ public class SubastaController {
 
     // =================== CAMBIAR ESTADO ===================
     @PutMapping("/{id}/estado/{estado}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public void cambiarEstado(@PathVariable Long id,
                               @PathVariable String estado) {
 
@@ -138,6 +144,7 @@ public class SubastaController {
 
     // =================== ELIMINAR ===================
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public void eliminar(@PathVariable Long id) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

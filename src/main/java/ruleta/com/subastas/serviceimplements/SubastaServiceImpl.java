@@ -48,4 +48,10 @@ public class SubastaServiceImpl implements ISubastaService {
     public List<Subasta> findByEstado(String estado) {
         return subastaRepo.findByEstado(estado);
     }
+
+    @Override
+    public List<Subasta> findByEventoIdAndEstado(Long eventoId, String estado) {
+        return subastaRepo.findByEventoIdAndEstado(eventoId, estado);
+    }
+
 }

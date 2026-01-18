@@ -3,6 +3,7 @@ package ruleta.com.subastas.entities;
 import ruleta.com.subastas.security.content.entities.Users;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "subastas")
@@ -11,6 +12,9 @@ public class Subasta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = true)
+    private Integer numeroSubasta; // número asignado en el evento
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -39,10 +43,17 @@ public class Subasta {
     @Column(nullable = false)
     private String estado; // PENDIENTE / ACEPTADA / RECHAZADA
 
+    @Column(nullable = true)
+    private LocalTime horaInicioAsignada; // hora real de inicio de esta subasta
+
+    @Column(nullable = true)
+    private LocalTime horaFinAsignada; // hora real de fin de esta subasta
+
+
     public Subasta() {
     }
 
-    public Subasta(Long id, Users user, Evento evento, String planta, String maceta, String observaciones, String imagen, Double precioBase, String estado) {
+    public Subasta(Long id, Users user, Evento evento, String planta, String maceta, String observaciones, String imagen, Double precioBase, String estado, Integer numeroSubasta, LocalTime horaInicioAsignada, LocalTime horaFinAsignada) {
         this.id = id;
         this.user = user;
         this.evento = evento;
@@ -52,6 +63,9 @@ public class Subasta {
         this.imagen = imagen;
         this.precioBase = precioBase;
         this.estado = estado;
+        this.numeroSubasta = numeroSubasta;
+        this.horaInicioAsignada = horaInicioAsignada;
+        this.horaFinAsignada = horaFinAsignada;
     }
 
     public Long getId() {
@@ -124,5 +138,29 @@ public class Subasta {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Integer getNumeroSubasta() {
+        return numeroSubasta;
+    }
+
+    public void setNumeroSubasta(Integer numeroSubasta) {
+        this.numeroSubasta = numeroSubasta;
+    }
+
+    public LocalTime getHoraInicioAsignada() {
+        return horaInicioAsignada;
+    }
+
+    public void setHoraInicioAsignada(LocalTime horaInicioAsignada) {
+        this.horaInicioAsignada = horaInicioAsignada;
+    }
+
+    public LocalTime getHoraFinAsignada() {
+        return horaFinAsignada;
+    }
+
+    public void setHoraFinAsignada(LocalTime horaFinAsignada) {
+        this.horaFinAsignada = horaFinAsignada;
     }
 }

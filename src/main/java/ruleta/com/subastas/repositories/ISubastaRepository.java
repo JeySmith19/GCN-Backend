@@ -10,8 +10,7 @@ import java.util.List;
 public interface ISubastaRepository extends JpaRepository<Subasta, Long> {
 
     List<Subasta> findByUserId(Long userId);
-
     List<Subasta> findByEventoId(Long eventoId);
-
     List<Subasta> findByEstado(String estado);
+    List<Subasta> findByEventoIdAndEstado(Long eventoId, String estado);
 }
