@@ -62,18 +62,24 @@ public class SubastaController {
         mapper.addMappings(new org.modelmapper.PropertyMap<Subasta, SubastaDTO>() {
             @Override
             protected void configure() {
+                // Info del usuario
                 map().setUserId(source.getUser().getId());
                 map().setUsername(source.getUser().getName());
                 map().setPhone(source.getUser().getPhone());
                 map().setCity(source.getUser().getCity());
 
+                // Info del evento
                 map().setEventoId(source.getEvento().getId());
                 map().setEventoNombre(source.getEvento().getNombre());
                 map().setFechaEvento(source.getEvento().getFechaEvento());
                 map().setHoraInicio(source.getEvento().getHoraInicio());
-                map().setDuracionSubastaMinutos(
-                        source.getEvento().getDuracionSubastaMinutos()
-                );
+                map().setDuracionSubastaMinutos(source.getEvento().getDuracionSubastaMinutos());
+                map().setDescansoMinutos(source.getEvento().getDescansoMinutos());
+
+                // Info de la subasta
+                map().setNumeroSubasta(source.getNumeroSubasta());
+                map().setHoraInicioAsignada(source.getHoraInicioAsignada());
+                map().setHoraFinAsignada(source.getHoraFinAsignada());
             }
         });
 
@@ -86,6 +92,7 @@ public class SubastaController {
                 .map(s -> mapper.map(s, SubastaDTO.class))
                 .collect(Collectors.toList());
     }
+
 
 
     // =================== LISTAR POR ID (para editar) ===================

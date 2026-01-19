@@ -13,8 +13,9 @@ public class SubastaDTO {
     private Long eventoId;
     private String eventoNombre;
     private LocalDate fechaEvento;
-    private LocalTime horaInicio;
+    private LocalTime horaInicio; // hora de inicio del evento
     private Integer duracionSubastaMinutos;
+    private Integer descansoMinutos; // nuevo campo
 
     private String planta;
     private String maceta;
@@ -23,131 +24,68 @@ public class SubastaDTO {
     private String estado;
     private Double precioBase;
 
-    public Long getId() {
-        return id;
-    }
+    private Integer numeroSubasta; // nuevo
+    private LocalTime horaInicioAsignada; // nuevo
+    private LocalTime horaFinAsignada; // nuevo
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    // GETTERS Y SETTERS
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getUserId() {
-        return userId;
-    }
+    public Long getUserId() { return userId; }
+    public void setUserId(Long userId) { this.userId = userId; }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
-    public String getUsername() {
-        return username;
-    }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public String getCity() { return city; }
+    public void setCity(String city) { this.city = city; }
 
-    public String getPhone() {
-        return phone;
-    }
+    public Long getEventoId() { return eventoId; }
+    public void setEventoId(Long eventoId) { this.eventoId = eventoId; }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+    public String getEventoNombre() { return eventoNombre; }
+    public void setEventoNombre(String eventoNombre) { this.eventoNombre = eventoNombre; }
 
-    public String getCity() {
-        return city;
-    }
+    public LocalDate getFechaEvento() { return fechaEvento; }
+    public void setFechaEvento(LocalDate fechaEvento) { this.fechaEvento = fechaEvento; }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+    public LocalTime getHoraInicio() { return horaInicio; }
+    public void setHoraInicio(LocalTime horaInicio) { this.horaInicio = horaInicio; }
 
-    public Long getEventoId() {
-        return eventoId;
-    }
+    public Integer getDuracionSubastaMinutos() { return duracionSubastaMinutos; }
+    public void setDuracionSubastaMinutos(Integer duracionSubastaMinutos) { this.duracionSubastaMinutos = duracionSubastaMinutos; }
 
-    public void setEventoId(Long eventoId) {
-        this.eventoId = eventoId;
-    }
+    public Integer getDescansoMinutos() { return descansoMinutos; }
+    public void setDescansoMinutos(Integer descansoMinutos) { this.descansoMinutos = descansoMinutos; }
 
-    public String getEventoNombre() {
-        return eventoNombre;
-    }
+    public String getPlanta() { return planta; }
+    public void setPlanta(String planta) { this.planta = planta; }
 
-    public void setEventoNombre(String eventoNombre) {
-        this.eventoNombre = eventoNombre;
-    }
+    public String getMaceta() { return maceta; }
+    public void setMaceta(String maceta) { this.maceta = maceta; }
 
-    public LocalDate getFechaEvento() {
-        return fechaEvento;
-    }
+    public String getObservaciones() { return observaciones; }
+    public void setObservaciones(String observaciones) { this.observaciones = observaciones; }
 
-    public void setFechaEvento(LocalDate fechaEvento) {
-        this.fechaEvento = fechaEvento;
-    }
+    public String getImagen() { return imagen; }
+    public void setImagen(String imagen) { this.imagen = imagen; }
 
-    public LocalTime getHoraInicio() {
-        return horaInicio;
-    }
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
 
-    public void setHoraInicio(LocalTime horaInicio) {
-        this.horaInicio = horaInicio;
-    }
+    public Double getPrecioBase() { return precioBase; }
+    public void setPrecioBase(Double precioBase) { this.precioBase = precioBase; }
 
-    public Integer getDuracionSubastaMinutos() {
-        return duracionSubastaMinutos;
-    }
+    public Integer getNumeroSubasta() { return numeroSubasta; }
+    public void setNumeroSubasta(Integer numeroSubasta) { this.numeroSubasta = numeroSubasta; }
 
-    public void setDuracionSubastaMinutos(Integer duracionSubastaMinutos) {
-        this.duracionSubastaMinutos = duracionSubastaMinutos;
-    }
+    public LocalTime getHoraInicioAsignada() { return horaInicioAsignada; }
+    public void setHoraInicioAsignada(LocalTime horaInicioAsignada) { this.horaInicioAsignada = horaInicioAsignada; }
 
-    public String getPlanta() {
-        return planta;
-    }
-
-    public void setPlanta(String planta) {
-        this.planta = planta;
-    }
-
-    public String getMaceta() {
-        return maceta;
-    }
-
-    public void setMaceta(String maceta) {
-        this.maceta = maceta;
-    }
-
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    public String getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public Double getPrecioBase() {
-        return precioBase;
-    }
-
-    public void setPrecioBase(Double precioBase) {
-        this.precioBase = precioBase;
-    }
+    public LocalTime getHoraFinAsignada() { return horaFinAsignada; }
+    public void setHoraFinAsignada(LocalTime horaFinAsignada) { this.horaFinAsignada = horaFinAsignada; }
 }
