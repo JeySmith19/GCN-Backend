@@ -165,27 +165,4 @@ public class SubastaController {
         }
     }
 
-    @GetMapping("/evento/{eventoId}")
-    @PreAuthorize("hasAuthority('USER')")
-    public List<SubastaDTO> listarPorEvento(@PathVariable Long eventoId) {
-
-        ModelMapper mapper = new ModelMapper();
-
-        mapper.addMappings(new org.modelmapper.PropertyMap<Subasta, SubastaDTO>() {
-            @Override
-            protected void configure() {
-                map().setEventoId(source.getEvento().getId());
-                map().setNumeroSubasta(source.getNumeroSubasta());
-                map().setEstado(source.getEstado());
-                map().setHoraInicioAsignada(source.getHoraInicioAsignada());
-                map().setHoraFinAsignada(source.getHoraFinAsignada());
-            }
-        });
-
-        return subastaService.findByEventoId(eventoId)
-                .stream()
-                .map(s -> mapper.map(s, SubastaDTO.class))
-                .collect(Collectors.toList());
-    }
-
 }
