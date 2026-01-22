@@ -68,6 +68,27 @@ public class AdministracionController {
                 .collect(Collectors.toList());
     }
 
+    @PutMapping("/subastas/{id}/decision/{estado}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public void decidirSubasta(@PathVariable Long id,
+                               @PathVariable String estado) {
+
+        Subasta s = subastaService.listId(id);
+
+        if (s == null) {
+            throw new RuntimeException("Subasta no encontrada");
+        }
+
+        if (!estado.equalsIgnoreCase("ACEPTADA") &&
+                !estado.equalsIgnoreCase("RECHAZADA")) {
+            throw new RuntimeException("Estado inválido");
+        }
+
+        s.setEstado(estado.toUpperCase());
+        subastaService.insert(s);
+    }
+
+
 
     // =================== ORGANIZAR SUBASTAS ===================
     @PostMapping("/organizar-subastas/{eventoId}")
