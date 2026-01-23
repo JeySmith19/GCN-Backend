@@ -88,7 +88,46 @@ public class AdministracionController {
         subastaService.insert(s);
     }
 
+    @GetMapping("/subastas/aceptadas")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public List<SubastaDTO> listarSubastasAceptadas() {
 
+        ModelMapper mapper = new ModelMapper();
+
+        mapper.addMappings(new org.modelmapper.PropertyMap<Subasta, SubastaDTO>() {
+            @Override
+            protected void configure() {
+                // Info subasta
+                map().setNumeroSubasta(source.getNumeroSubasta());
+                map().setEstado(source.getEstado());
+                map().setHoraInicioAsignada(source.getHoraInicioAsignada());
+                map().setHoraFinAsignada(source.getHoraFinAsignada());
+                map().setPlanta(source.getPlanta());
+                map().setMaceta(source.getMaceta());
+                map().setPrecioBase(source.getPrecioBase());
+                map().setObservaciones(source.getObservaciones());
+
+                // Info evento
+                map().setEventoId(source.getEvento().getId());
+                map().setEventoNombre(source.getEvento().getNombre());
+                map().setFechaEvento(source.getEvento().getFechaEvento());
+                map().setHoraInicio(source.getEvento().getHoraInicio());
+                map().setDuracionSubastaMinutos(source.getEvento().getDuracionSubastaMinutos());
+                map().setDescansoMinutos(source.getEvento().getDescansoMinutos());
+
+                // Info usuario
+                map().setUserId(source.getUser().getId());
+                map().setUsername(source.getUser().getName());
+                map().setPhone(source.getUser().getPhone());
+                map().setCity(source.getUser().getCity());
+            }
+        });
+
+        return subastaService.findByEstado("ACEPTADA")
+                .stream()
+                .map(s -> mapper.map(s, SubastaDTO.class))
+                .collect(Collectors.toList());
+    }
 
     // =================== ORGANIZAR SUBASTAS ===================
     @PostMapping("/organizar-subastas/{eventoId}")
