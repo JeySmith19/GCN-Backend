@@ -2,6 +2,7 @@ package ruleta.com.subastas.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +21,7 @@ public class MyDataController {
     private IUsersRepository userRepo;
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR')")
     public ResponseEntity<UserDTO> getMyData() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = ((UserDetails) auth.getPrincipal()).getUsername();

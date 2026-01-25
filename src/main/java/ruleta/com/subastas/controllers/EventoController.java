@@ -3,6 +3,7 @@ package ruleta.com.subastas.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ruleta.com.subastas.dtos.EventoDTO;
 import ruleta.com.subastas.entities.Evento;
@@ -21,6 +22,7 @@ public class EventoController {
     private IEventoService eventoService;
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> crear(@RequestBody EventoDTO dto) {
 
         boolean existeAbierto = eventoService.list().stream()
@@ -41,6 +43,7 @@ public class EventoController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public List<EventoDTO> listar() {
         ModelMapper mapper = new ModelMapper();
         return eventoService.list().stream()
@@ -49,6 +52,7 @@ public class EventoController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public EventoDTO listarId(@PathVariable Long id) {
         Evento evento = eventoService.listId(id);
         if (evento == null) return null;
@@ -58,6 +62,7 @@ public class EventoController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public void actualizar(@RequestBody EventoDTO dto) {
         ModelMapper mapper = new ModelMapper();
         Evento evento = mapper.map(dto, Evento.class);
@@ -65,6 +70,7 @@ public class EventoController {
     }
 
     @PutMapping("/{id}/auto-cerrar")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public void cerrarAutomaticamente(@PathVariable Long id) {
         Evento evento = eventoService.listId(id);
         if (evento != null) {
@@ -86,6 +92,7 @@ public class EventoController {
 
 
     @PutMapping("/{id}/estado/{estado}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public void cambiarEstado(@PathVariable Long id, @PathVariable String estado) {
         Evento evento = eventoService.listId(id);
         if (evento != null) {
@@ -95,6 +102,7 @@ public class EventoController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public void eliminar(@PathVariable Long id) {
         eventoService.delete(id);
     }

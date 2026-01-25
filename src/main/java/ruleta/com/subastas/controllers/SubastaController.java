@@ -34,7 +34,7 @@ public class SubastaController {
 
     // =================== CREAR ===================
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR')")
     public void crear(@RequestBody SubastaDTO dto) {
         ModelMapper mapper = new ModelMapper();
 
@@ -54,7 +54,7 @@ public class SubastaController {
 
     // =================== LISTAR MIS SUBASTAS ===================
     @GetMapping("/mis-subastas")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR')")
     public List<SubastaDTO> misSubastas() {
 
         ModelMapper mapper = new ModelMapper();
@@ -97,7 +97,7 @@ public class SubastaController {
 
     // =================== LISTAR POR ID (para editar) ===================
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR')")
     public SubastaDTO listarId(@PathVariable Long id) {
 
         ModelMapper mapper = new ModelMapper();
@@ -116,7 +116,7 @@ public class SubastaController {
 
     // =================== ACTUALIZAR ===================
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR')")
     public void actualizar(@PathVariable Long id, @RequestBody SubastaDTO dto) {
         ModelMapper mapper = new ModelMapper();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -138,7 +138,7 @@ public class SubastaController {
 
     // =================== CAMBIAR ESTADO ===================
     @PutMapping("/{id}/estado/{estado}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public void cambiarEstado(@PathVariable Long id,
                               @PathVariable String estado) {
 
@@ -151,7 +151,7 @@ public class SubastaController {
 
     // =================== ELIMINAR ===================
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR')")
     public void eliminar(@PathVariable Long id) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

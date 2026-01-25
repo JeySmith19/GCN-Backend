@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-//@RequestMapping("/admin")
 @CrossOrigin
 public class AdministracionController {
 
@@ -28,7 +27,7 @@ public class AdministracionController {
 
 
     @GetMapping("/subastas/evento/{eventoId}")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<SubastaDTO> listarSubastasEventoAdmin(@PathVariable Long eventoId) {
 
         ModelMapper mapper = new ModelMapper();
