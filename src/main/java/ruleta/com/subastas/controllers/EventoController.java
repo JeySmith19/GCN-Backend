@@ -2,6 +2,7 @@ package ruleta.com.subastas.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ruleta.com.subastas.dtos.EventoDTO;
 import ruleta.com.subastas.entities.Evento;
@@ -20,11 +21,23 @@ public class EventoController {
     private IEventoService eventoService;
 
     @PostMapping
-    public void crear(@RequestBody EventoDTO dto) {
+    public ResponseEntity<?> crear(@RequestBody EventoDTO dto) {
+
+        boolean existeAbierto = eventoService.list().stream()
+                .anyMatch(e -> "ABIERTO".equals(e.getEstado()));
+
+        if (existeAbierto) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Ya existe un evento abierto");
+        }
+
         ModelMapper mapper = new ModelMapper();
         Evento evento = mapper.map(dto, Evento.class);
         evento.setEstado("ABIERTO");
         eventoService.insert(evento);
+
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
