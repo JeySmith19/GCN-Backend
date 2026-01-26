@@ -11,7 +11,7 @@
 	<groupId>ruleta.com</groupId>
 	<artifactId>Subastas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>Subastas</name>
 	<description>Subastas</description>
 	<url/>
