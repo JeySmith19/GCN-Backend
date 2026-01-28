@@ -54,7 +54,13 @@ public class WebSecurityConfig {
         httpSecurity
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/authenticate", "/register").permitAll()
+                .antMatchers(
+                        "/authenticate",
+                        "/register",
+                        "/request-password-reset",
+                        "/verify-reset-code",
+                        "/reset-password"
+                ).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
