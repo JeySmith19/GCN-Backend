@@ -1,17 +1,20 @@
 package ruleta.com.subastas.security.content.dto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class UserDTO {
 
     private Long id;
     private String username;
+    private String password;
     private String name;
     private String lastName;
     private String phone;
     private String city;
     private List<String> roles;
-    private String password;
+    private String resetPasswordCode;
+    private LocalDateTime resetPasswordCodeExpiration;
 
     public UserDTO() {
     }
@@ -30,6 +33,14 @@ public class UserDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
@@ -72,11 +83,19 @@ public class UserDTO {
         this.roles = roles;
     }
 
-    public String getPassword() {
-        return password;
+    public String getResetPasswordCode() {
+        return resetPasswordCode;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setResetPasswordCode(String resetPasswordCode) {
+        this.resetPasswordCode = resetPasswordCode;
+    }
+
+    public LocalDateTime getResetPasswordCodeExpiration() {
+        return resetPasswordCodeExpiration;
+    }
+
+    public void setResetPasswordCodeExpiration(LocalDateTime resetPasswordCodeExpiration) {
+        this.resetPasswordCodeExpiration = resetPasswordCodeExpiration;
     }
 }
