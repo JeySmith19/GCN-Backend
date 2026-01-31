@@ -35,7 +35,7 @@ public class AdministracionController {
         mapper.addMappings(new org.modelmapper.PropertyMap<Subasta, SubastaDTO>() {
             @Override
             protected void configure() {
-                // Info subasta
+
                 map().setNumeroSubasta(source.getNumeroSubasta());
                 map().setEstado(source.getEstado());
                 map().setHoraInicioAsignada(source.getHoraInicioAsignada());
@@ -45,7 +45,6 @@ public class AdministracionController {
                 map().setPrecioBase(source.getPrecioBase());
                 map().setObservaciones(source.getObservaciones());
 
-                // Info evento
                 map().setEventoId(source.getEvento().getId());
                 map().setEventoNombre(source.getEvento().getNombre());
                 map().setFechaEvento(source.getEvento().getFechaEvento());
@@ -53,7 +52,6 @@ public class AdministracionController {
                 map().setDuracionSubastaMinutos(source.getEvento().getDuracionSubastaMinutos());
                 map().setDescansoMinutos(source.getEvento().getDescansoMinutos());
 
-                // Info usuario (creador)
                 map().setUserId(source.getUser().getId());
                 map().setUsername(source.getUser().getName());
                 map().setPhone(source.getUser().getPhone());
@@ -96,7 +94,7 @@ public class AdministracionController {
         mapper.addMappings(new org.modelmapper.PropertyMap<Subasta, SubastaDTO>() {
             @Override
             protected void configure() {
-                // Info subasta
+
                 map().setNumeroSubasta(source.getNumeroSubasta());
                 map().setEstado(source.getEstado());
                 map().setHoraInicioAsignada(source.getHoraInicioAsignada());
@@ -106,7 +104,6 @@ public class AdministracionController {
                 map().setPrecioBase(source.getPrecioBase());
                 map().setObservaciones(source.getObservaciones());
 
-                // Info evento
                 map().setEventoId(source.getEvento().getId());
                 map().setEventoNombre(source.getEvento().getNombre());
                 map().setFechaEvento(source.getEvento().getFechaEvento());
@@ -114,7 +111,6 @@ public class AdministracionController {
                 map().setDuracionSubastaMinutos(source.getEvento().getDuracionSubastaMinutos());
                 map().setDescansoMinutos(source.getEvento().getDescansoMinutos());
 
-                // Info usuario
                 map().setUserId(source.getUser().getId());
                 map().setUsername(source.getUser().getName());
                 map().setPhone(source.getUser().getPhone());
@@ -128,7 +124,6 @@ public class AdministracionController {
                 .collect(Collectors.toList());
     }
 
-    // =================== ORGANIZAR SUBASTAS ===================
     @PostMapping("/organizar-subastas/{eventoId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public void organizarSubastas(@PathVariable Long eventoId) {
@@ -136,35 +131,26 @@ public class AdministracionController {
                 () -> new RuntimeException("Evento no encontrado")
         );
 
-        // Solo se puede organizar si el evento está cerrado
         if (!evento.getEstado().equalsIgnoreCase("CERRADO")) {
             throw new RuntimeException("El evento debe estar cerrado para organizar las subastas.");
         }
 
-        // Obtener subastas aceptadas
         List<Subasta> aceptadas = subastaService.findByEventoIdAndEstado(eventoId, "ACEPTADA");
 
         if (aceptadas.isEmpty()) {
             throw new RuntimeException("No hay subastas aceptadas para este evento");
         }
 
-        // Mezclar aleatoriamente (intercaladas)
         Collections.shuffle(aceptadas);
-
         LocalTime horaActual = evento.getHoraInicio();
         int duracion = evento.getDuracionSubastaMinutos();
         int descanso = evento.getDescansoMinutos();
-
         for (int i = 0; i < aceptadas.size(); i++) {
             Subasta s = aceptadas.get(i);
             s.setNumeroSubasta(i + 1);
             s.setHoraInicioAsignada(horaActual);
             s.setHoraFinAsignada(horaActual.plusMinutes(duracion));
-
-            // Actualizar hora para la siguiente subasta
             horaActual = horaActual.plusMinutes(duracion + descanso);
-
-            // Guardar cambios
             subastaService.insert(s);
         }
     }

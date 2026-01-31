@@ -39,7 +39,6 @@ public class SubastaController {
     @Autowired
     private CloudinaryService cloudinaryService;
 
-    // =================== CREAR ===================
     @PostMapping(consumes = "multipart/form-data")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR')")
     public void crear(
@@ -70,7 +69,6 @@ public class SubastaController {
         subastaService.insert(s);
     }
 
-    // =================== ACTUALIZAR ===================
     @PutMapping(value = "/{id}", consumes = "multipart/form-data")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR')")
     public void actualizar(
@@ -111,7 +109,6 @@ public class SubastaController {
         subastaService.insert(actualizada);
     }
 
-    // =================== MIS SUBASTAS ===================
     @GetMapping("/mis-subastas")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR')")
     public List<SubastaDTO> misSubastas() {
@@ -146,7 +143,6 @@ public class SubastaController {
                 .collect(Collectors.toList());
     }
 
-    // =================== LISTAR POR ID ===================
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR')")
     public SubastaDTO listarId(@PathVariable Long id) {
@@ -162,7 +158,6 @@ public class SubastaController {
         return null;
     }
 
-    // =================== CAMBIAR ESTADO ===================
     @PutMapping("/{id}/estado/{estado}")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public void cambiarEstado(@PathVariable Long id, @PathVariable String estado) {
@@ -173,7 +168,6 @@ public class SubastaController {
         }
     }
 
-    // =================== ELIMINAR ===================
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR')")
     public void eliminar(@PathVariable Long id) throws IOException {

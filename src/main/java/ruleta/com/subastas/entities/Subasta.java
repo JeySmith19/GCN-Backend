@@ -14,7 +14,7 @@ public class Subasta {
     private Long id;
 
     @Column(nullable = true)
-    private Integer numeroSubasta; // número asignado en el evento
+    private Integer numeroSubasta;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
