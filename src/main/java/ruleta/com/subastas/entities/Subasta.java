@@ -34,26 +34,29 @@ public class Subasta {
     private String observaciones;
 
     @Column(columnDefinition = "TEXT")
-    private String imagen; // aquí irá Base64
+    private String imagen;
+
+    @Column(nullable = true)
+    private String imagenId;
 
     @Column(nullable = false)
     private Double precioBase;
 
-
     @Column(nullable = false)
-    private String estado; // PENDIENTE / ACEPTADA / RECHAZADA
+    private String estado;
 
     @Column(nullable = true)
-    private LocalTime horaInicioAsignada; // hora real de inicio de esta subasta
+    private LocalTime horaInicioAsignada;
 
     @Column(nullable = true)
-    private LocalTime horaFinAsignada; // hora real de fin de esta subasta
-
+    private LocalTime horaFinAsignada;
 
     public Subasta() {
     }
 
-    public Subasta(Long id, Users user, Evento evento, String planta, String maceta, String observaciones, String imagen, Double precioBase, String estado, Integer numeroSubasta, LocalTime horaInicioAsignada, LocalTime horaFinAsignada) {
+    public Subasta(Long id, Users user, Evento evento, String planta, String maceta, String observaciones,
+                   String imagen, String imagenId, Double precioBase, String estado, Integer numeroSubasta,
+                   LocalTime horaInicioAsignada, LocalTime horaFinAsignada) {
         this.id = id;
         this.user = user;
         this.evento = evento;
@@ -61,12 +64,15 @@ public class Subasta {
         this.maceta = maceta;
         this.observaciones = observaciones;
         this.imagen = imagen;
+        this.imagenId = imagenId;
         this.precioBase = precioBase;
         this.estado = estado;
         this.numeroSubasta = numeroSubasta;
         this.horaInicioAsignada = horaInicioAsignada;
         this.horaFinAsignada = horaFinAsignada;
     }
+
+    // ================== GETTERS Y SETTERS ==================
 
     public Long getId() {
         return id;
@@ -122,6 +128,14 @@ public class Subasta {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public String getImagenId() {
+        return imagenId;
+    }
+
+    public void setImagenId(String imagenId) {
+        this.imagenId = imagenId;
     }
 
     public Double getPrecioBase() {
