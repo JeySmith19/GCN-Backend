@@ -69,28 +69,6 @@ public class EventoController {
         eventoService.insert(evento);
     }
 
-    @PutMapping("/{id}/auto-cerrar")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public void cerrarAutomaticamente(@PathVariable Long id) {
-        Evento evento = eventoService.listId(id);
-        if (evento != null) {
-
-            LocalDateTime inicio = LocalDateTime.of(
-                    evento.getFechaEvento(),
-                    evento.getHoraInicio()
-            );
-
-            // 1 hora antes
-            LocalDateTime cierreProgramado = inicio.minusHours(1);
-
-            if (LocalDateTime.now().isAfter(cierreProgramado)) {
-                evento.setEstado("CERRADO");
-                eventoService.insert(evento);
-            }
-        }
-    }
-
-
     @PutMapping("/{id}/estado/{estado}")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public void cambiarEstado(@PathVariable Long id, @PathVariable String estado) {
