@@ -7,12 +7,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CloudinaryConfig {
+
     @Bean
     public Cloudinary cloudinary() {
         return new Cloudinary(ObjectUtils.asMap(
-                "cloud_name", "dutucd3bi",
-                "api_key", "951229193823677",
-                "api_secret", "eJcjkwP2b2BN4GPFmRGmuxLaRDk",
+                "cloud_name", System.getenv("CLOUDINARY_CLOUD_NAME"),
+                "api_key", System.getenv("CLOUDINARY_API_KEY"),
+                "api_secret", System.getenv("CLOUDINARY_API_SECRET"),
                 "secure", true
         ));
     }
