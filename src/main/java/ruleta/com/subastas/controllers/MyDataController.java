@@ -21,7 +21,7 @@ public class MyDataController {
     private IUsersRepository userRepo;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR', 'USER')")
     public ResponseEntity<UserDTO> getMyData() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = ((UserDetails) auth.getPrincipal()).getUsername();
