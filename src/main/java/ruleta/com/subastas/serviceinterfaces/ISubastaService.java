@@ -14,5 +14,5 @@ public interface ISubastaService {
     List<Subasta> findByUserId(Long userId);
     List<Subasta> findByEstado(String estado);
     List<Subasta> findByEventoIdAndEstado(Long eventoId, String estado);
-
+    List<Subasta> findByUserIdAndEventoId(Long userId, Long eventoId);
 }

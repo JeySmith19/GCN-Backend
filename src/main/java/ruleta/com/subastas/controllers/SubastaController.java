@@ -143,6 +143,40 @@ public class SubastaController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/subastador/evento/{idEvento}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR')")
+    public List<SubastaDTO> subastadorPorEvento(@PathVariable Long idEvento) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = ((UserDetails) auth.getPrincipal()).getUsername();
+        Users user = userRepo.findByUsername(username);
+
+        ModelMapper mapper = new ModelMapper();
+        mapper.addMappings(new org.modelmapper.PropertyMap<Subasta, SubastaDTO>() {
+            @Override
+            protected void configure() {
+                map().setUserId(source.getUser().getId());
+                map().setUsername(source.getUser().getName());
+                map().setPhone(source.getUser().getPhone());
+                map().setCity(source.getUser().getCity());
+                map().setEventoId(source.getEvento().getId());
+                map().setEventoNombre(source.getEvento().getNombre());
+                map().setFechaEvento(source.getEvento().getFechaEvento());
+                map().setHoraInicio(source.getEvento().getHoraInicio());
+                map().setDuracionSubastaMinutos(source.getEvento().getDuracionSubastaMinutos());
+                map().setDescansoMinutos(source.getEvento().getDescansoMinutos());
+                map().setNumeroSubasta(source.getNumeroSubasta());
+                map().setHoraInicioAsignada(source.getHoraInicioAsignada());
+                map().setHoraFinAsignada(source.getHoraFinAsignada());
+            }
+        });
+
+        return subastaService.findByUserIdAndEventoId(user.getId(), idEvento)
+                .stream()
+                .map(s -> mapper.map(s, SubastaDTO.class))
+                .collect(Collectors.toList());
+    }
+
+
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR')")
     public SubastaDTO listarId(@PathVariable Long id) {

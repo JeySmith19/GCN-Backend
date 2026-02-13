@@ -13,4 +13,6 @@ public interface ISubastaRepository extends JpaRepository<Subasta, Long> {
     List<Subasta> findByEventoId(Long eventoId);
     List<Subasta> findByEstado(String estado);
     List<Subasta> findByEventoIdAndEstado(Long eventoId, String estado);
+    List<Subasta> findByUserIdAndEventoId(Long userId, Long eventoId);
+
 }

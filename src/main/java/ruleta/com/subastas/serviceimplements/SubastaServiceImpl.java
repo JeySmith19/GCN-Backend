@@ -54,4 +54,10 @@ public class SubastaServiceImpl implements ISubastaService {
         return subastaRepo.findByEventoIdAndEstado(eventoId, estado);
     }
 
+    @Override
+    public List<Subasta> findByUserIdAndEventoId(Long userId, Long eventoId) {
+        return subastaRepo.findByUserIdAndEventoId(userId, eventoId);
+    }
+
+
 }
