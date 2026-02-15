@@ -129,4 +129,22 @@ public class RatingController {
     public Long getTotalRatings(@PathVariable Long userId) {
         return ratingService.getTotalRatings(userId);
     }
+
+    @GetMapping("/me/summary")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR', 'USER')")
+    public ResponseEntity<?> getMyRatingSummary() {
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Users currentUser = userRepo.findByUsername(username);
+
+        Double average = ratingService.getAverageRating(currentUser.getId());
+        Long total = ratingService.getTotalRatings(currentUser.getId());
+
+        return ResponseEntity.ok().body(
+                java.util.Map.of(
+                        "averageRating", average != null ? average : 0.0,
+                        "totalRatings", total != null ? total : 0L
+                )
+        );
+    }
 }
