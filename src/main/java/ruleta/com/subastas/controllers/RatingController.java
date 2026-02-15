@@ -62,7 +62,11 @@ public class RatingController {
     @GetMapping("/search")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR', 'USER')")
     public List<UserDTO> searchUsers(@RequestParam String term) {
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        Users currentUser = userRepo.findByUsername(currentUsername);
+
         return userRepo.findAll().stream()
+                .filter(u -> !u.getId().equals(currentUser.getId()))
                 .filter(u -> (u.getName() + " " + u.getLastName()).toLowerCase().contains(term.toLowerCase()))
                 .map(u -> {
                     UserDTO dto = new UserDTO();
@@ -146,5 +150,13 @@ public class RatingController {
                         "totalRatings", total != null ? total : 0L
                 )
         );
+    }
+
+    @GetMapping("/me/reviews")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SUBASTADOR', 'USER')")
+    public List<Rating> getMyReviews() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Users currentUser = userRepo.findByUsername(username);
+        return ratingService.getRatingsOfUser(currentUser.getId());
     }
 }
