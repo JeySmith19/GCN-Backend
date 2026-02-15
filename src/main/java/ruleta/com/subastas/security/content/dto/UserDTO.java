@@ -15,6 +15,9 @@ public class UserDTO {
     private List<String> roles;
     private String resetPasswordCode;
     private LocalDateTime resetPasswordCodeExpiration;
+    private Double averageRating;
+    private Long totalSubastas;
+    private Double reputationScore;
 
     public UserDTO() {
     }
@@ -97,5 +100,29 @@ public class UserDTO {
 
     public void setResetPasswordCodeExpiration(LocalDateTime resetPasswordCodeExpiration) {
         this.resetPasswordCodeExpiration = resetPasswordCodeExpiration;
+    }
+
+    public Double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(Double averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public Long getTotalSubastas() {
+        return totalSubastas;
+    }
+
+    public void setTotalSubastas(Long totalSubastas) {
+        this.totalSubastas = totalSubastas;
+    }
+
+    public Double getReputationScore() {
+        return reputationScore;
+    }
+
+    public void setReputationScore(Double reputationScore) {
+        this.reputationScore = reputationScore;
     }
 }
